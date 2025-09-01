@@ -56,20 +56,23 @@ public class Crud {
         et.begin();
 
         int id = sto.getId();
-        Sto s = em.createQuery("Select s from Sto s where s.id = :id", Sto.class).setParameter("id", id).getSingleResult();
+        sto = em.createQuery("Select s from Sto s where s.id = :id", Sto.class).setParameter("id", id).getSingleResult();
+        while(!sto.getPica().isEmpty()) {
+            Pic2sto p2s = sto.getPica().getLast();
 
-        Pic2sto p2s = s.getPica().getLast();
+            Pice pice = p2s.getPice();
 
-        Pice pice = p2s.getPice();
-
-        s.removePice(pice);
-
-        em.merge(s);
-        em.remove(p2s);
+            sto.removePice(pice);
+            em.merge(sto);
+            em.remove(p2s);
+        }
+        sto.getRacun().setOpen(true);
+        em.merge(sto.getRacun());
 
         et.commit();
         em.close();
     }
+
 
     public void addKonobar(String jmbg, String name, String lastName, String pass){
         EntityManager em = pem.getEntityManager();
