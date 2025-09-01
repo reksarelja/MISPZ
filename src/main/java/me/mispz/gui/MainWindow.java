@@ -2,6 +2,7 @@ package me.mispz.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
@@ -12,6 +13,8 @@ import javafx.fxml.FXML;
 import me.mispz.util.LoggedIn;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class MainWindow {
 
@@ -27,7 +30,7 @@ public class MainWindow {
         if(crud.checkLog(txfName.getText(), pfPass.getText())){
             LoggedIn.logIn(crud.getKonobar(txfName.getText(), pfPass.getText()));
             Scene scene = new Scene(new FXMLLoader(getClass().getResource("table-selection.fxml")).load());
-            Stage currStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            Stage currStage = (Stage) pfPass.getScene().getWindow();
             currStage.close();
 
             Stage stage = new Stage();
@@ -37,5 +40,5 @@ public class MainWindow {
             stage.show();
         }
     }
-    
+
 }

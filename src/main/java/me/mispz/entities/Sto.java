@@ -34,10 +34,10 @@ public class Sto {
     @OneToMany(mappedBy = "sto", fetch = FetchType.LAZY)
     private List<Pic2sto> pica = new ArrayList<>();
 
-    public void addPice(Pice pice){
+    public Pic2sto addPice(Pice pice){
         Pic2sto pic2sto = new Pic2sto(pice, this);
         pica.add(pic2sto);
-        pice.getStolovi().add(pic2sto);
+        return pic2sto;
     }
 
     public void removePice(Pice pice) {
@@ -45,9 +45,9 @@ public class Sto {
             Pic2sto pic2sto = iterator.next();
             if(pic2sto.getSto().equals(this) && pic2sto.getPice().equals(pice)){
                 iterator.remove();
-                pic2sto.getPice().getStolovi().remove(pic2sto);
                 pic2sto.setSto(null);
                 pic2sto.setPice(null);
+                return;
             }
         }
     }

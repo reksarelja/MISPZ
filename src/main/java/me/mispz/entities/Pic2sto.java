@@ -1,11 +1,8 @@
 package me.mispz.entities;
 
 import jakarta.persistence.*;
-import jakarta.transaction.Transactional;
 
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.time.OffsetDateTime;
 import java.util.Objects;
 
 @Entity
@@ -13,7 +10,7 @@ import java.util.Objects;
 public class Pic2sto {
     @EmbeddedId
     private Pic2stoId id;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "piceId")
     @MapsId("piceId")
     private Pice pice;

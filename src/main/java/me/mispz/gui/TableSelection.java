@@ -49,6 +49,8 @@ public class TableSelection {
 
     public void initialize(){
         cmbPickTable.setItems(crud.getTables());
+        cmbPickTable.getSelectionModel().select(0);
+        refreshAllDrinks();
 
         allId.setCellValueFactory(new PropertyValueFactory<>("id"));
         allName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -57,6 +59,7 @@ public class TableSelection {
         allPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
 
         tblSvaPica.setItems(crud.getPica());
+        tblSvaPica.getSelectionModel().select(0);
 
         stoId.setCellValueFactory(new PropertyValueFactory<>("id"));
         stoName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -66,39 +69,32 @@ public class TableSelection {
     }
 
     @FXML
-    public void onSelectClick(){
+    public void refreshAllDrinks() {
         crud.setTableKonobar(LoggedIn.getLogged(), cmbPickTable.getValue().getId());
         selectedTable = cmbPickTable.getValue().getId();
         ObservableList<Pice> p = FXCollections.observableArrayList();
         for(Pic2sto p2s : crud.getStoPica(crud.getTable(selectedTable))){
             p.add(p2s.getPice());
         }
-        pica.setAll(p);
+        pica.clear();
+        pica.addAll(p);
         tblStoPica.setItems(pica);
     }
 
     @FXML
     public void onAdd(){
-        try {
-            if (crud.getTable(selectedTable).getRacun().isOpen()) {
-                pica.add(tblSvaPica.getSelectionModel().getSelectedItem());
-                crud.addPic2Sto(tblSvaPica.getSelectionModel().getSelectedItem(), crud.getTable(selectedTable));
-                tblStoPica.setItems(pica);
-                crud.setRacun(crud.getTable(selectedTable));
-            }
-        } catch(NullPointerException e){
-            pica.add(tblSvaPica.getSelectionModel().getSelectedItem());
-            crud.addPic2Sto(tblSvaPica.getSelectionModel().getSelectedItem(), crud.getTable(selectedTable));
-            tblStoPica.setItems(pica);
-            crud.setRacun(crud.getTable(selectedTable));
-        }
+        pica.add(tblSvaPica.getSelectionModel().getSelectedItem());
+        crud.addPic2Sto(tblSvaPica.getSelectionModel().getSelectedItem(), crud.getTable(selectedTable));
+        tblStoPica.setItems(pica);
     }
 
     @FXML
     public void onGenerateBill(){
-        Racun racun = crud.getRacun(crud.getTable(selectedTable));
-        lblRacun.setText(String.valueOf(racun.getBill()));
-        crud.deletePicaPic2sto(crud.getTable(selectedTable));
+        crud.setRacun(selectedTable);
+
+        lblRacun.setText(String.valueOf(crud.getRacun(selectedTable).getBill()));
+        crud.deletePicaPic2sto(selectedTable);
+        refreshAllDrinks();
     }
 
 }

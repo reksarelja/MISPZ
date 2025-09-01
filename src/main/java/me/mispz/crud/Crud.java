@@ -49,25 +49,16 @@ public class Crud {
         return list;
     }
 
-    public void deletePicaPic2sto(Sto sto){
+    public void deletePicaPic2sto(int stoID){
         EntityManager em = pem.getEntityManager();
         EntityTransaction et = em.getTransaction();
-
         et.begin();
 
-        int id = sto.getId();
-        sto = em.createQuery("Select s from Sto s where s.id = :id", Sto.class).setParameter("id", id).getSingleResult();
-        while(!sto.getPica().isEmpty()) {
-            Pic2sto p2s = sto.getPica().getLast();
+        Sto sto = em.find(Sto.class, stoID);
 
-            Pice pice = p2s.getPice();
-
-            sto.removePice(pice);
-            em.merge(sto);
-            em.remove(p2s);
-        }
-        sto.getRacun().setOpen(true);
-        em.merge(sto.getRacun());
+        em.createQuery("delete from Pic2sto where sto.id = :stoID").setParameter("stoID", stoID).executeUpdate();
+        em.remove(sto.getRacun());
+        sto.setRacun(null);
 
         et.commit();
         em.close();
@@ -101,11 +92,7 @@ public class Crud {
 
     public void setTableKonobar(Konobar konobar, int id){
         EntityManager em = pem.getEntityManager();
-        TypedQuery<Sto> tq = em.createQuery("Select s " +
-                "from Sto s " +
-                "where s.id = :id", Sto.class);
-        tq.setParameter("id", id);
-        Sto sto = tq.getSingleResult();
+        Sto sto = em.find(Sto.class, id);
         sto.setKonobar(konobar);
         EntityTransaction et = em.getTransaction();
 
@@ -135,68 +122,61 @@ public class Crud {
 
         sto = em.find(Sto.class, sto.getId());
         pice = em.find(Pice.class, pice.getId());
-        sto.addPice(pice);
+
+        em.merge(sto.addPice(pice));
         em.merge(sto);
 
         et.commit();
         em.close();
     }
 
-    public Racun getRacun(Sto sto){
+    public Racun getRacun(int stoId){
         EntityManager em = pem.getEntityManager();
         EntityTransaction et = em.getTransaction();
         et.begin();
+        Sto sto = em.find(Sto.class, stoId);
         Racun racun = sto.getRacun();
         racun.setOpen(false);
-        em.merge(racun);
+        racun = em.merge(racun);
         et.commit();
         em.close();
         return racun;
     }
 
-    public void setRacun(Sto sto){
+    public void setRacun(int stoId) {
         EntityManager em = pem.getEntityManager();
         EntityTransaction et = em.getTransaction();
+        Sto sto = em.find(Sto.class, stoId);
+
         float bill = 0F;
-        for(Pic2sto p : sto.getPica()){
+        for (Pic2sto p : sto.getPica()) {
             bill += p.getPice().getPrice();
         }
-        TypedQuery<Boolean> tq = em.createQuery("select s.racun is null from Sto s where s.id = :id", Boolean.class);
-        tq.setParameter("id", sto.getId());
+
         et.begin();
-        boolean temp = tq.getSingleResult();
-        if(temp) {
-            Racun racun = new Racun();
-            racun.setBill(bill);
-            racun.setPayType(TIP_PLACANJA.credit_card.name());
-            racun.setOpen(true);
+        if (sto.getRacun() == null) {
+
+            Racun racun = new Racun(bill, TIP_PLACANJA.credit_card.name());
             em.persist(racun);
             sto.setRacun(racun);
             em.merge(sto);
             et.commit();
-            System.out.println("create");
-            em.close();
 
-        } else if(sto.getRacun().isOpen()){
+        } else if (sto.getRacun().isOpen()) {
+
             Racun racun = sto.getRacun();
             racun.setBill(bill);
-            racun.setPayType(TIP_PLACANJA.credit_card.name());
             em.merge(racun);
             et.commit();
-            System.out.println("alter");
             em.close();
-        } else {
-            em.close();
+
         }
+        em.close();
     }
 
     public Sto getTable(int id){
         EntityManager em = pem.getEntityManager();
-        TypedQuery<Sto> tq = em.createQuery("Select s " +
-                "from Sto s " +
-                "where s.id = :id", Sto.class);
-        tq.setParameter("id", id);
-        Sto sto = tq.getSingleResult();
+        Sto sto = em.find(Sto.class, id);
         em.close();
         return sto;
     }

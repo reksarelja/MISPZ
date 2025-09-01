@@ -21,6 +21,14 @@ public class Racun {
     @Column(name = "open", nullable = false)
     private boolean open;
 
+    public Racun() {}
+
+    public Racun(float bill, String payType) {
+        this.bill = bill;
+        this.payType = payType;
+        this.open = true;
+    }
+
     public int getId() {
         return id;
     }

@@ -22,8 +22,6 @@ public class Pice {
     private boolean balance;
     @Column(name = "price", nullable = false)
     private Integer price;
-    @OneToMany(mappedBy = "pice", fetch = FetchType.LAZY)
-    private List<Pic2sto> stolovi = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -65,14 +63,6 @@ public class Pice {
         this.price = price;
     }
 
-    public List<Pic2sto> getStolovi() {
-        return stolovi;
-    }
-
-    public void setStolovi(List<Pic2sto> pica) {
-        this.stolovi = pica;
-    }
-
     @Override
     public String toString() {
         return "Pice{" +
@@ -88,11 +78,11 @@ public class Pice {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Pice pice = (Pice) o;
-        return alc == pice.alc && balance == pice.balance && Objects.equals(id, pice.id) && Objects.equals(name, pice.name) && Objects.equals(price, pice.price) && Objects.equals(stolovi, pice.stolovi);
+        return alc == pice.alc && balance == pice.balance && Objects.equals(id, pice.id) && Objects.equals(name, pice.name) && Objects.equals(price, pice.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, alc, balance, price, stolovi);
+        return Objects.hash(id, name, alc, balance, price);
     }
 }
