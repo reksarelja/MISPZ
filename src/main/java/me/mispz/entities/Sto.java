@@ -46,7 +46,7 @@ public class Sto {
             Pic2sto pic2sto = iterator.next();
             if(pic2sto.getSto().equals(this) && pic2sto.getPice().equals(pice)){
                 iterator.remove();
-                pic2sto.getSto().getPica().remove(pic2sto);
+                pic2sto.getPice().getStolovi().remove(pic2sto);
                 pic2sto.setSto(null);
                 pic2sto.setPice(null);
             }

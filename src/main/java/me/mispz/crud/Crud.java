@@ -56,21 +56,19 @@ public class Crud {
         EntityTransaction et = em.getTransaction();
         et.begin();
         int id = sto.getId();
-        sto.getPica().forEach(System.out::println);
         Sto s = em.createQuery("Select s from Sto s where s.id = :id", Sto.class).setParameter("id", id).getSingleResult();
+        while(!s.getPica().isEmpty()) {
+            Pic2sto p2s = s.getPica().getLast();
 
-        Pic2sto p2s = s.getPica().getLast();
+            Pice pice = p2s.getPice();
 
-        Pice pice = p2s.getPice();
-
-        System.out.println(pice);
-
-        sto.removePice(pice);
-        em.merge(sto);
-        em.remove(p2s);
-
-        sto.getPica().forEach(System.out::println);
-
+            s.removePice(pice);
+            em.merge(s);
+            em.remove(p2s);
+        }
+        sto.getRacun().setOpen(true);
+        System.out.println(sto.getRacun().isOpen());
+        em.merge(sto.getRacun());
         et.commit();
         em.close();
     }

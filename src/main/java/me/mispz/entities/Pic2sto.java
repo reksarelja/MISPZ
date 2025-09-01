@@ -14,11 +14,11 @@ public class Pic2sto {
     @EmbeddedId
     private Pic2stoId id;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "piceId", nullable = false)
+    @JoinColumn(name = "piceId", nullable = true)
     @MapsId("piceId")
     private Pice pice;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "stoId", nullable = false)
+    @JoinColumn(name = "stoId", nullable = true)
     @MapsId("stoId")
     private Sto sto;
     @Column(name = "id", nullable = false, insertable = false, updatable = false)
