@@ -73,7 +73,6 @@ public class Crud {
         em.close();
     }
 
-
     public void addKonobar(String jmbg, String name, String lastName, String pass){
         EntityManager em = pem.getEntityManager();
         EntityTransaction et = em.getTransaction();
@@ -134,8 +133,11 @@ public class Crud {
         EntityTransaction et = em.getTransaction();
         et.begin();
 
+        sto = em.find(Sto.class, sto.getId());
+        pice = em.find(Pice.class, pice.getId());
         sto.addPice(pice);
         em.merge(sto);
+
         et.commit();
         em.close();
     }
