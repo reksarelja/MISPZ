@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.mispz.gui.TableSelection">
+   <children>
+      <HBox alignment="CENTER" prefHeight="64.0" prefWidth="600.0" spacing="100.0">
+         <children>
+            <ComboBox fx:id="cmbxPickTable" prefWidth="150.0" promptText="stolovi" />
+            <Button fx:id="btnSelect" mnemonicParsing="false" onAction="#onSelectClick" text="Select" />
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="503.0" prefWidth="1280.0">
+         <children>
+            <TableView fx:id="tblSvaPica" prefHeight="148.0" prefWidth="640.0">
+                <columns>
+                    <TableColumn fx:id="allId" prefWidth="130.0" text="ID" />
+                    <TableColumn fx:id="allName" prefWidth="225.0" text="Name" />
+                    <TableColumn fx:id="allAlc" prefWidth="70.0" text="Alc" />
+                    <TableColumn fx:id="allBalance" prefWidth="70.0" text="Balance" />
+                    <TableColumn fx:id="allPrice" minWidth="0.0" prefWidth="145.0" text="Price" />
+                </columns>
+            </TableView>
+            <TableView fx:id="tblStoPica" layoutX="210.0" layoutY="10.0" prefHeight="148.0" prefWidth="640.0">
+                <columns>
+                    <TableColumn fx:id="stoId" prefWidth="130.0" text="ID" />
+                    <TableColumn fx:id="stoName" prefWidth="225.0" text="Name" />
+                    <TableColumn fx:id="stoAlc" prefWidth="70.0" text="Alc" />
+                    <TableColumn fx:id="stoBalance" prefWidth="70.0" text="Balance" />
+                    <TableColumn fx:id="stoPrice" prefWidth="145.0" text="Price" />
+                </columns>
+            </TableView>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="40.0" prefWidth="1280.0">
+         <children>
+            <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#onAdd" prefHeight="35.0" prefWidth="80.0" text="Add">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="200.0">
+         <children>
+            <Label fx:id="lblRacun" text="Racun:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnGenerateBill" mnemonicParsing="false" onAction="#onGenerateBill" prefHeight="35.0" prefWidth="80.0" text="Close">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</VBox>
