@@ -22,10 +22,8 @@ public class Pice {
     private boolean balance;
     @Column(name = "price", nullable = false)
     private Integer price;
-    @OneToMany(mappedBy = "pice", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "pice", fetch = FetchType.LAZY)
     private List<Pic2sto> stolovi = new ArrayList<>();
-
-
 
     public Integer getId() {
         return id;
@@ -66,11 +64,11 @@ public class Pice {
     public void setPrice(Integer price) {
         this.price = price;
     }
-    @Transactional
+
     public List<Pic2sto> getStolovi() {
         return stolovi;
     }
-    @Transactional
+
     public void setStolovi(List<Pic2sto> pica) {
         this.stolovi = pica;
     }

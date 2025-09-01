@@ -14,11 +14,11 @@ public class Pic2sto {
     @EmbeddedId
     private Pic2stoId id;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "piceId", nullable = false)
+    @JoinColumn(name = "piceId")
     @MapsId("piceId")
     private Pice pice;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "stoId", nullable = false)
+    @JoinColumn(name = "stoId")
     @MapsId("stoId")
     private Sto sto;
     @Column(name = "id", nullable = false, insertable = false, updatable = false)
@@ -39,11 +39,11 @@ public class Pic2sto {
     public void setId(Pic2stoId id) {
         this.id = id;
     }
-    @Transactional
+
     public Pice getPice() {
         return pice;
     }
-    @Transactional
+
     public void setPice(Pice pice) {
         this.pice = pice;
     }

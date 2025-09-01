@@ -13,8 +13,9 @@ import me.mispz.entities.Sto;
 import me.mispz.util.LoggedIn;
 
 public class TableSelection {
+
     @FXML
-    private ComboBox<Sto> cmbxPickTable;
+    private ComboBox<Sto> cmbPickTable;
     @FXML
     private TableView<Pice> tblSvaPica;
     @FXML
@@ -40,17 +41,14 @@ public class TableSelection {
     @FXML
     private TableColumn<Pice, Boolean> stoPrice;
     @FXML
-    private Button btnSelect;
-    private final Crud crud = new Crud();
-    @FXML
-    private Button btnGenerateBill;
-    @FXML
     private Label lblRacun;
+
+    private final Crud crud = new Crud();
     private int selectedTable;
     private ObservableList<Pice> pica = FXCollections.observableArrayList();
 
     public void initialize(){
-        cmbxPickTable.setItems(crud.getTables());
+        cmbPickTable.setItems(crud.getTables());
 
         allId.setCellValueFactory(new PropertyValueFactory<>("id"));
         allName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -66,10 +64,11 @@ public class TableSelection {
         stoBalance.setCellValueFactory(new PropertyValueFactory<>("balance"));
         stoPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
+
     @FXML
     public void onSelectClick(){
-        crud.setTableKonobar(LoggedIn.getLogged(), cmbxPickTable.getValue().getId());
-        selectedTable = cmbxPickTable.getValue().getId();
+        crud.setTableKonobar(LoggedIn.getLogged(), cmbPickTable.getValue().getId());
+        selectedTable = cmbPickTable.getValue().getId();
         ObservableList<Pice> p = FXCollections.observableArrayList();
         for(Pic2sto p2s : crud.getStoPica(crud.getTable(selectedTable))){
             p.add(p2s.getPice());
@@ -77,6 +76,7 @@ public class TableSelection {
         pica.setAll(p);
         tblStoPica.setItems(pica);
     }
+
     @FXML
     public void onAdd(){
         try {
@@ -93,10 +93,12 @@ public class TableSelection {
             crud.setRacun(crud.getTable(selectedTable));
         }
     }
+
     @FXML
     public void onGenerateBill(){
         Racun racun = crud.getRacun(crud.getTable(selectedTable));
         lblRacun.setText(String.valueOf(racun.getBill()));
         crud.deletePicaPic2sto(crud.getTable(selectedTable));
     }
+
 }

@@ -10,12 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.mispz.gui.TableSelection">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.mispz.gui.TableSelection">
    <children>
       <HBox alignment="CENTER" prefHeight="64.0" prefWidth="600.0" spacing="100.0">
          <children>
-            <ComboBox fx:id="cmbxPickTable" prefWidth="150.0" promptText="stolovi" />
-            <Button fx:id="btnSelect" mnemonicParsing="false" onAction="#onSelectClick" text="Select" />
+            <ComboBox fx:id="cmbPickTable" onAction="#onSelectClick" prefWidth="150.0" promptText="stolovi" />
          </children>
          <VBox.margin>
             <Insets />
@@ -45,7 +44,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="40.0" prefWidth="1280.0">
          <children>
-            <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#onAdd" prefHeight="35.0" prefWidth="80.0" text="Add">
+            <Button mnemonicParsing="false" onAction="#onAdd" prefHeight="35.0" prefWidth="80.0" text="Add">
                <font>
                   <Font size="16.0" />
                </font>
@@ -54,12 +53,21 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="200.0">
          <children>
-            <Label fx:id="lblRacun" text="Racun:">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Button fx:id="btnGenerateBill" mnemonicParsing="false" onAction="#onGenerateBill" prefHeight="35.0" prefWidth="80.0" text="Close">
+            <HBox alignment="CENTER_LEFT" prefWidth="200.0">
+               <children>
+                  <Label text="Racun: ">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblRacun" prefHeight="30.0" text="0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#onGenerateBill" prefHeight="35.0" prefWidth="80.0" text="Close">
                <font>
                   <Font size="16.0" />
                </font>

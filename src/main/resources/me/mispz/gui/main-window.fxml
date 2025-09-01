@@ -21,6 +21,5 @@
       </children>
    </HBox>
 
-    <Label fx:id="list" />
-    <Button fx:id="log" onAction="#onLog" prefHeight="37.0" prefWidth="76.0" text="Log in" />
+    <Button onAction="#onLog" prefHeight="37.0" prefWidth="76.0" text="Log in" />
 </VBox>

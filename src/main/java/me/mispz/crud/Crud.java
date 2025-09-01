@@ -1,6 +1,5 @@
 package me.mispz.crud;
 
-import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,10 +8,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import me.mispz.util.PersistenceEntityManager;
 import me.mispz.util.TIP_PLACANJA;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
-import java.util.List;
 
 public class Crud {
 
@@ -25,6 +20,7 @@ public class Crud {
         em.close();
         return list;
     }
+
     public ObservableList<Sto> getTables(){
         EntityManager em = pem.getEntityManager();
         TypedQuery<Sto> tq = em.createQuery("Select s " +
@@ -33,6 +29,7 @@ public class Crud {
         em.close();
         return list;
     }
+
     public ObservableList<Pice> getPica(){
         EntityManager em = pem.getEntityManager();
         TypedQuery<Pice> tq = em.createQuery("Select p " +
@@ -51,29 +48,29 @@ public class Crud {
         ObservableList<Pic2sto> list = FXCollections.observableList(tq.getResultList());
         return list;
     }
+
     public void deletePicaPic2sto(Sto sto){
         EntityManager em = pem.getEntityManager();
         EntityTransaction et = em.getTransaction();
+
         et.begin();
+
         int id = sto.getId();
-        sto.getPica().forEach(System.out::println);
         Sto s = em.createQuery("Select s from Sto s where s.id = :id", Sto.class).setParameter("id", id).getSingleResult();
 
         Pic2sto p2s = s.getPica().getLast();
 
         Pice pice = p2s.getPice();
 
-        System.out.println(pice);
+        s.removePice(pice);
 
-        sto.removePice(pice);
-        em.merge(sto);
+        em.merge(s);
         em.remove(p2s);
-
-        sto.getPica().forEach(System.out::println);
 
         et.commit();
         em.close();
     }
+
     public void addKonobar(String jmbg, String name, String lastName, String pass){
         EntityManager em = pem.getEntityManager();
         EntityTransaction et = em.getTransaction();
@@ -91,6 +88,7 @@ public class Crud {
             em.close();
         }
     }
+
     public Vlasnik getVlasnik(){
         EntityManager em = pem.getEntityManager();
         TypedQuery<Vlasnik> tq = em.createQuery("Select v from Vlasnik v", Vlasnik.class);
@@ -98,6 +96,7 @@ public class Crud {
         em.close();
         return vlasnik;
     }
+
     public void setTableKonobar(Konobar konobar, int id){
         EntityManager em = pem.getEntityManager();
         TypedQuery<Sto> tq = em.createQuery("Select s " +
@@ -113,21 +112,20 @@ public class Crud {
         et.commit();
         em.close();
     }
-    public void setTableRacun(Racun racun, int id){
+
+    public void setTableRacun(int racunId, int stoId) {
         EntityManager em = pem.getEntityManager();
-        TypedQuery<Sto> tq = em.createQuery("Select s " +
-                "from Sto s " +
-                "where s.id = :id", Sto.class);
-        tq.setParameter("id", id);
-        Sto sto = tq.getSingleResult();
-        sto.setRacun(racun);
         EntityTransaction et = em.getTransaction();
+
+        Sto sto = em.find(Sto.class, stoId);
+        sto.setRacun(em.find(Racun.class, racunId));
 
         et.begin();
         em.merge(sto);
         et.commit();
         em.close();
     }
+
     public void addPic2Sto(Pice pice, Sto sto){
         EntityManager em = pem.getEntityManager();
         EntityTransaction et = em.getTransaction();
@@ -138,6 +136,7 @@ public class Crud {
         et.commit();
         em.close();
     }
+
     public Racun getRacun(Sto sto){
         EntityManager em = pem.getEntityManager();
         EntityTransaction et = em.getTransaction();
@@ -149,6 +148,7 @@ public class Crud {
         em.close();
         return racun;
     }
+
     public void setRacun(Sto sto){
         EntityManager em = pem.getEntityManager();
         EntityTransaction et = em.getTransaction();
@@ -183,8 +183,8 @@ public class Crud {
         } else {
             em.close();
         }
-
     }
+
     public Sto getTable(int id){
         EntityManager em = pem.getEntityManager();
         TypedQuery<Sto> tq = em.createQuery("Select s " +
@@ -195,6 +195,7 @@ public class Crud {
         em.close();
         return sto;
     }
+
     public boolean checkLog(String name, String pass){
         Vlasnik vlasnik = getVlasnik();
         ObservableList<Konobar> konobari = getKonobars();
@@ -207,6 +208,7 @@ public class Crud {
         }
         return false;
     }
+
     public Konobar getKonobar(String name, String pass){
         ObservableList<Konobar> konobari = getKonobars();
         for (Konobar t : konobari) {

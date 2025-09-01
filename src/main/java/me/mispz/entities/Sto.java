@@ -31,10 +31,9 @@ public class Sto {
     @JoinColumn(name = "racunId")
     private Racun racun;
 
-    @OneToMany(mappedBy = "sto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "sto", fetch = FetchType.LAZY)
     private List<Pic2sto> pica = new ArrayList<>();
 
-    @Transactional
     public void addPice(Pice pice){
         Pic2sto pic2sto = new Pic2sto(pice, this);
         pica.add(pic2sto);
@@ -46,7 +45,7 @@ public class Sto {
             Pic2sto pic2sto = iterator.next();
             if(pic2sto.getSto().equals(this) && pic2sto.getPice().equals(pice)){
                 iterator.remove();
-                pic2sto.getSto().getPica().remove(pic2sto);
+                pic2sto.getPice().getStolovi().remove(pic2sto);
                 pic2sto.setSto(null);
                 pic2sto.setPice(null);
             }
