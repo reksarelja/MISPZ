@@ -12,6 +12,8 @@ import me.mispz.util.TIP_PLACANJA;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import java.util.List;
+
 public class Crud {
 
     private final PersistenceEntityManager pem = PersistenceEntityManager.getInstance();
@@ -40,6 +42,38 @@ public class Crud {
         return list;
     }
 
+    public ObservableList<Pic2sto> getStoPica(Sto sto){
+        EntityManager em = pem.getEntityManager();
+        TypedQuery<Pic2sto> tq = em.createQuery("select p " +
+                "from Pic2sto p " +
+                "where p.sto = :sto", Pic2sto.class);
+        tq.setParameter("sto", sto);
+        ObservableList<Pic2sto> list = FXCollections.observableList(tq.getResultList());
+        return list;
+    }
+    public void deletePicaPic2sto(Sto sto){
+        EntityManager em = pem.getEntityManager();
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        int id = sto.getId();
+        sto.getPica().forEach(System.out::println);
+        Sto s = em.createQuery("Select s from Sto s where s.id = :id", Sto.class).setParameter("id", id).getSingleResult();
+
+        Pic2sto p2s = s.getPica().getLast();
+
+        Pice pice = p2s.getPice();
+
+        System.out.println(pice);
+
+        sto.removePice(pice);
+        em.merge(sto);
+        em.remove(p2s);
+
+        sto.getPica().forEach(System.out::println);
+
+        et.commit();
+        em.close();
+    }
     public void addKonobar(String jmbg, String name, String lastName, String pass){
         EntityManager em = pem.getEntityManager();
         EntityTransaction et = em.getTransaction();
