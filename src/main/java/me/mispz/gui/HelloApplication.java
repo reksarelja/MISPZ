@@ -4,10 +4,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import me.mispz.crud.Crud;
-import me.mispz.util.LoggedIn;
 
 import java.io.IOException;
+import java.util.Objects;
+import java.util.Stack;
 
 public class HelloApplication extends Application {
 
@@ -15,12 +15,11 @@ public class HelloApplication extends Application {
         launch(args);
     }
 
-    private final Crud crud = new Crud();
+    public static Stack<String> fxmlStack = new Stack<>();
+
     @Override
     public void start(Stage stage) throws IOException {
-
-        LoggedIn.logIn(crud.getKonobar("w", "111"));
-        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("table-selection.fxml")));
+        Scene scene = new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-window.fxml"))));
         stage.setResizable(false);
         stage.setTitle("Login");
         stage.setScene(scene);

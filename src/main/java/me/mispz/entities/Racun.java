@@ -1,10 +1,6 @@
 package me.mispz.entities;
 
 import jakarta.persistence.*;
-import jakarta.transaction.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 
@@ -20,7 +16,8 @@ public class Racun {
     private String payType;
     @Column(name = "open", nullable = false)
     private boolean open;
-
+    @Column(name = "konobar")
+    private String konobar;
     public Racun() {}
 
     public Racun(float bill, String payType) {
@@ -59,6 +56,14 @@ public class Racun {
 
     public void setOpen(boolean open) {
         this.open = open;
+    }
+
+    public String getKonobar() {
+        return konobar;
+    }
+
+    public void setKonobar(String konobar) {
+        this.konobar = konobar;
     }
 
     @Override

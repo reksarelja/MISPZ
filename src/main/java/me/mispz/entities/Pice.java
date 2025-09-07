@@ -1,10 +1,7 @@
 package me.mispz.entities;
 
 import jakarta.persistence.*;
-import jakarta.transaction.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,6 +9,7 @@ import java.util.Objects;
 @Table(name = "pice")
 public class Pice {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
     @Column(name = "name", nullable = false)
@@ -19,7 +17,7 @@ public class Pice {
     @Column(name = "alc", nullable = false)
     private boolean alc;
     @Column(name = "balance", nullable = false)
-    private boolean balance;
+    private Integer balance;
     @Column(name = "price", nullable = false)
     private Integer price;
 
@@ -47,11 +45,11 @@ public class Pice {
         this.alc = alc;
     }
 
-    public boolean isBalance() {
+    public Integer getBalance() {
         return balance;
     }
 
-    public void setBalance(boolean balance) {
+    public void setBalance(Integer balance) {
         this.balance = balance;
     }
 

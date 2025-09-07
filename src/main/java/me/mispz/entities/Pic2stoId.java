@@ -69,4 +69,5 @@ public class Pic2stoId implements Serializable{
     public int hashCode() {
         return Objects.hash(piceId, stoId, time);
     }
+
 }

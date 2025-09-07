@@ -1,9 +1,6 @@
 package me.mispz.gui;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -13,8 +10,6 @@ import javafx.fxml.FXML;
 import me.mispz.util.LoggedIn;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class MainWindow {
 
@@ -26,15 +21,21 @@ public class MainWindow {
     private final Crud crud = new Crud();
 
     @FXML
-    protected void onLog(ActionEvent event) throws IOException {
+    protected void onLog() throws IOException {
+
         if(crud.checkLog(txfName.getText(), pfPass.getText())){
             LoggedIn.logIn(crud.getKonobar(txfName.getText(), pfPass.getText()));
-            Scene scene = new Scene(new FXMLLoader(getClass().getResource("table-selection.fxml")).load());
+            Scene scene;
             Stage currStage = (Stage) pfPass.getScene().getWindow();
             currStage.close();
-
             Stage stage = new Stage();
-            stage.setTitle("Tables");
+            if(LoggedIn.isKonobar()) {
+                scene = new Scene(new FXMLLoader(getClass().getResource("table-selection.fxml")).load());
+                stage.setTitle("Tables");
+            } else{
+                scene = new Scene(new FXMLLoader(getClass().getResource("admin-window.fxml")).load());
+                stage.setTitle("Admin");
+            }
             stage.setScene(scene);
             stage.setResizable(false);
             stage.show();

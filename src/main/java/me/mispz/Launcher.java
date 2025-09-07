@@ -1,4 +1,6 @@
-package me.mispz.gui;
+package me.mispz;
+
+import me.mispz.gui.HelloApplication;
 
 public class Launcher {
 

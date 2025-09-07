@@ -15,5 +15,7 @@ module me.mispz {
 
     opens me.mispz.util to javafx.fxml, org.xerial.sqlitejdbc, jakarta.persistence, org.hibernate.orm.core, jakarta.cdi;
     exports me.mispz.util;
+	exports me.mispz;
+	opens me.mispz to jakarta.cdi, jakarta.persistence, javafx.fxml, org.hibernate.orm.core, org.xerial.sqlitejdbc;
 
 }

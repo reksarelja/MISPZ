@@ -12,9 +12,11 @@
       <class>me.mispz.entities.Musterija</class>
       <class>me.mispz.entities.Pic2sto</class>
       <class>me.mispz.entities.Mus2sto</class>
+      <class>me.mispz.entities.Nastup</class>
+      <class>me.mispz.entities.Obavestenje</class>
       <properties>
           <property name="jakarta.persistence.jdbc.driver" value="org.sqlite.JDBC"/>
-          <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlite:C:\Users\PC\IdeaProjects\MISPZ\MISPZ.db"/>
+          <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlite:C:/Users/Relja/IdeaProjects/MISPZ/MISPZ.db"/>
           <property name="hibernate.dialect" value="org.hibernate.community.dialect.SQLiteDialect"/>
           <property name="hibernate.show_sql" value="false"/>
       </properties>

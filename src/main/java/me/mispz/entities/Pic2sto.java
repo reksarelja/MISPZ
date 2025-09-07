@@ -1,6 +1,7 @@
 package me.mispz.entities;
 
 import jakarta.persistence.*;
+import me.mispz.util.PersistenceEntityManager;
 
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -20,7 +21,6 @@ public class Pic2sto {
     private Sto sto;
     @Column(name = "id", nullable = false, insertable = false, updatable = false)
     private Timestamp time;
-
     public Pic2sto(){}
 
     public Pic2sto(Pice pice, Sto sto){
@@ -38,7 +38,10 @@ public class Pic2sto {
     }
 
     public Pice getPice() {
-        return pice;
+        EntityManager em = PersistenceEntityManager.getInstance().getEntityManager();
+        Pice p = pice;
+        em.close();
+        return p;
     }
 
     public void setPice(Pice pice) {
@@ -46,7 +49,10 @@ public class Pic2sto {
     }
 
     public Sto getSto() {
-        return sto;
+        EntityManager em = PersistenceEntityManager.getInstance().getEntityManager();
+        Sto s =  sto;
+        em.close();
+        return s;
     }
 
     public void setSto(Sto sto) {

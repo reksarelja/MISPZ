@@ -1,10 +1,6 @@
 package me.mispz.entities;
 
 import jakarta.persistence.*;
-import jakarta.transaction.Transactional;
-import me.mispz.crud.Crud;
-import me.mispz.util.PersistenceEntityManager;
-import org.hibernate.Session;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -18,6 +14,7 @@ import java.util.Objects;
 @Table(name = "sto")
 public class Sto {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -34,6 +31,9 @@ public class Sto {
     @OneToMany(mappedBy = "sto", fetch = FetchType.LAZY)
     private List<Pic2sto> pica = new ArrayList<>();
 
+    @OneToMany(mappedBy = "sto", fetch = FetchType.LAZY)
+    private List<Mus2sto> musterije = new ArrayList<>();
+
     public Pic2sto addPice(Pice pice){
         Pic2sto pic2sto = new Pic2sto(pice, this);
         pica.add(pic2sto);
@@ -47,6 +47,24 @@ public class Sto {
                 iterator.remove();
                 pic2sto.setSto(null);
                 pic2sto.setPice(null);
+                return;
+            }
+        }
+    }
+
+    public Mus2sto addMusterije(Musterija musterija, Timestamp timestamp){
+        Mus2sto m2s = new Mus2sto(musterija, this, timestamp);
+        musterije.add(m2s);
+        return m2s;
+    }
+
+    public void removeMusterija(Musterija musterija) {
+        for (Iterator<Mus2sto> iterator = musterije.iterator(); iterator.hasNext(); ) {
+            Mus2sto mus2sto = iterator.next();
+            if(mus2sto.getSto().equals(this) && mus2sto.getMusterija().equals(musterija)){
+                iterator.remove();
+                mus2sto.setSto(null);
+                mus2sto.setMusterija(null);
                 return;
             }
         }
@@ -84,6 +102,27 @@ public class Sto {
         this.racun = racun;
     }
 
+    public List<Mus2sto> getMusterije() {
+        return musterije;
+    }
+
+    public void setMusterije(List<Mus2sto> musterije) {
+        this.musterije = musterije;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
+        Sto sto = (Sto) o;
+        return Objects.equals(id, sto.id) && Objects.equals(konobar, sto.konobar) && Objects.equals(racun, sto.racun) && Objects.equals(pica, sto.pica) && Objects.equals(musterije, sto.musterije);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, konobar, racun, pica, musterije);
+    }
+
     @Override
     public String toString() {
         return "Sto{" +
@@ -91,15 +130,4 @@ public class Sto {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Sto sto = (Sto) o;
-        return Objects.equals(id, sto.id) && Objects.equals(konobar, sto.konobar) && Objects.equals(racun, sto.racun) && Objects.equals(pica, sto.pica);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, konobar, racun, pica);
-    }
 }

@@ -1,20 +1,18 @@
 package me.mispz.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "musterija")
 public class Musterija {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
     @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
+    @Column(name = "phone_number", nullable = false)
+    private String phone_number;
     @Column(name = "age", nullable = false)
     private int age;
 
@@ -34,12 +32,12 @@ public class Musterija {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getPhone_number() {
+        return phone_number;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setPhone_number(String lastName) {
+        this.phone_number = lastName;
     }
 
     public int getAge() {
@@ -55,7 +53,7 @@ public class Musterija {
         return "Musterija{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", phone number='" + phone_number + '\'' +
                 ", age=" + age +
                 '}';
     }

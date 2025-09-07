@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.mispz.gui.AdminWindow">
+   <children>
+      <VBox alignment="BOTTOM_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="720.0" prefWidth="256.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onBack" text="&lt;- Back" />
+               </children>
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </HBox>
+            <Label text="Dodaj sto">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="25.0" />
+               </VBox.margin>
+            </Label>
+            <TableView fx:id="tblSto" prefHeight="545.0" prefWidth="320.0">
+              <columns>
+                <TableColumn fx:id="stoId" prefWidth="235.0" text="Sto" />
+              </columns>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </VBox.margin>
+            </TableView>
+            <Button mnemonicParsing="false" onAction="#onTAdd" text="Dodaj sto">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+         </children>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+         <padding>
+            <Insets bottom="20.0" top="20.0" />
+         </padding>
+      </VBox>
+      <VBox alignment="BOTTOM_CENTER" prefHeight="720.0" prefWidth="256.0">
+         <children>
+            <Label text="Dodaj konobara">
+               <VBox.margin>
+                  <Insets bottom="25.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="250.0" prefWidth="280.0">
+               <children>
+                  <Label prefWidth="100.0" text="Jmbg: ">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txfKJmbg" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="78.0" prefHeight="250.0" prefWidth="280.0">
+               <children>
+                  <Label prefWidth="100.0" text="Ime: ">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txfKName" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="178.0" prefHeight="250.0" prefWidth="200.0">
+               <children>
+                  <Label prefWidth="100.0" text="Prezime: ">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txfKLast" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="278.0" prefHeight="250.0" prefWidth="200.0">
+               <children>
+                  <Label prefWidth="100.0" text="Šifra: ">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txfKPass" />
+               </children>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#onKAdd" text="Dodaj korisnika">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="266.0" layoutY="10.0" prefHeight="720.0" prefWidth="256.0">
+         <children>
+            <Label text="Dodaj piće">
+               <VBox.margin>
+                  <Insets bottom="25.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="80.0" prefWidth="216.0">
+               <children>
+                  <Label prefWidth="100.0" text="Naziv:">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txfPName" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="78.0" prefHeight="54.0" prefWidth="216.0">
+               <children>
+                  <ToggleButton fx:id="isAlc" mnemonicParsing="false" text="Alkoholno">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </ToggleButton>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="178.0" prefHeight="80.0" prefWidth="200.0">
+               <children>
+                  <Label prefWidth="100.0" text="Na stanju:">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txfPBalance" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="278.0" prefHeight="80.0" prefWidth="200.0">
+               <children>
+                  <Label prefWidth="100.0" text="Cena:">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txfPPrice" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="18.0" prefWidth="216.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onPAdd" text="Dodaj piće">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="266.0" prefWidth="216.0">
+               <children>
+                  <TableView fx:id="tblPPica" prefHeight="258.0" prefWidth="216.0">
+                    <columns>
+                      <TableColumn fx:id="piceIme" prefWidth="122.0" text="Ime" />
+                      <TableColumn fx:id="piceStanje" prefWidth="93.0" text="Na stanju" />
+                    </columns>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TableView>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="27.0" prefWidth="216.0" spacing="5.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onDodajKol" text="Dodaj:">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="txfPDodajKol" prefHeight="35.0" prefWidth="140.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="330.0" layoutY="10.0" prefHeight="720.0" prefWidth="256.0">
+         <children>
+            <Label text="Dodaj nastup">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="25.0" />
+               </VBox.margin>
+            </Label>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefWidth="100.0" text="Naziv: ">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txfNName" />
+               </children>
+            </HBox>
+            <HBox prefHeight="36.0" prefWidth="236.0">
+               <children>
+                  <Label prefWidth="100.0" text="Datum:">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txfNDate" promptText="yyyy-mm-dd hh:mm:ss" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onNAdd" text="Dodaj nastup">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <VBox alignment="CENTER" prefHeight="420.0" prefWidth="280.0">
+               <children>
+                  <TextField fx:id="txfNSearch">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Button mnemonicParsing="false" onAction="#onNDelete" text="Obriši nastup">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <TableView fx:id="tblNastup" prefHeight="440.0" prefWidth="280.0">
+                    <columns>
+                      <TableColumn fx:id="nastupIme" prefWidth="120.0" text="Ime" />
+                      <TableColumn fx:id="nastupDatum" prefWidth="120.0" text="Datum" />
+                    </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+         </padding>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="650.0" layoutY="10.0" prefHeight="720.0" prefWidth="256.0">
+         <children>
+            <Label text="Dodaj obaveštenje">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="25.0" />
+               </VBox.margin>
+            </Label>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefWidth="100.0" text="Poruka:">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txfOMessage" />
+               </children>
+            </HBox>
+            <HBox prefHeight="31.0" prefWidth="236.0">
+               <children>
+                  <Label prefWidth="100.0" text="Datum:">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txfODate" promptText="yyyy-mm-dd hh:mm:ss" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" onDragDetected="#onOAdd" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onOAdd" text="Dodaj obaveštenje">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <VBox alignment="CENTER" prefHeight="420.0" prefWidth="280.0">
+               <children>
+                  <TextField fx:id="txfOSearch" prefHeight="25.0" prefWidth="349.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Button mnemonicParsing="false" onAction="#onODelete" text="Obriši obaveštenje">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <TableView fx:id="tblObav" prefHeight="432.0" prefWidth="280.0">
+                    <columns>
+                      <TableColumn fx:id="obavPoruka" prefWidth="120.0" text="Poruka" />
+                      <TableColumn fx:id="obavDatum" prefWidth="120.0" text="Datum" />
+                    </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </children>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+         <padding>
+            <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+         </padding>
+      </VBox>
+   </children>
+</HBox>
