@@ -22,6 +22,60 @@ public class Crud {
         em.close();
         return list;
     }
+    public void addKonobar(String jmbg, String name, String lastName, String pass){
+        EntityManager em = pem.getEntityManager();
+        try (em) {
+            EntityTransaction et = em.getTransaction();
+            Konobar konobar = new Konobar();
+            konobar.setJmbg(jmbg);
+            konobar.setName(name);
+            konobar.setLastName(lastName);
+            konobar.setPassword(pass);
+            et.begin();
+            em.persist(konobar);
+            et.commit();
+
+        } catch (Exception ignored) {
+        }
+    }
+    public Konobar getTableKonobar(int id){
+        try {
+            EntityManager em = pem.getEntityManager();
+            Konobar konobar = em.createQuery("Select s.konobar from Sto s where s.id = :id", Konobar.class).setParameter("id", id).getSingleResult();
+            em.close();
+            return konobar;
+        } catch(NoResultException e){
+            return null;
+        }
+    }
+    public void setTableKonobar(Konobar konobar, int id){
+        EntityManager em = pem.getEntityManager();
+        Sto sto = em.find(Sto.class, id);
+        sto.setKonobar(konobar);
+        EntityTransaction et = em.getTransaction();
+
+        et.begin();
+        em.merge(sto);
+        et.commit();
+        em.close();
+    }
+    public Konobar getKonobar(String name, String pass){
+        ObservableList<Konobar> konobari = getKonobars();
+        for (Konobar t : konobari) {
+            if ((t.getName().equals(name) && t.getPassword().equals(pass)))
+                return t;
+        }
+        return null;
+    }
+    public void setKonobarRacun(Racun racun, Konobar konobar){
+        EntityManager em = pem.getEntityManager();
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        racun.setKonobar(konobar.getJmbg());
+        em.merge(racun);
+        et.commit();
+        em.close();
+    }
     public ObservableList<Rezervacija> getMus2stos(){
         EntityManager em = pem.getEntityManager();
         ObservableList<Rezervacija> list = FXCollections.observableList(em.createQuery("Select m.sto.id, m.musterija.name, m.musterija.phone_number ,m.id.id from Mus2sto m", Rezervacija.class).getResultList());
@@ -108,25 +162,7 @@ public class Crud {
         em.close();
     }
 
-    public void addKonobar(String jmbg, String name, String lastName, String pass){
-        EntityManager em = pem.getEntityManager();
-        EntityTransaction et = em.getTransaction();
-        try {
-            Konobar konobar = new Konobar();
-            konobar.setJmbg(jmbg);
-            konobar.setName(name);
-            konobar.setLastName(lastName);
-            konobar.setPassword(pass);
-            et.begin();
-            em.persist(konobar);
-            et.commit();
 
-        }catch(Exception ignored){
-        }
-        finally{
-            em.close();
-        }
-    }
     public void addPice(String naziv, boolean alc, int stanje, int cena){
         EntityManager em = pem.getEntityManager();
         EntityTransaction et = em.getTransaction();
@@ -151,38 +187,11 @@ public class Crud {
         return vlasnik;
     }
 
-    public void setTableKonobar(Konobar konobar, int id){
-        EntityManager em = pem.getEntityManager();
-        Sto sto = em.find(Sto.class, id);
-        sto.setKonobar(konobar);
-        EntityTransaction et = em.getTransaction();
 
-        et.begin();
-        em.merge(sto);
-        et.commit();
-        em.close();
-    }
 
-    public Konobar getTableKonobar(int id){
-        try {
-            EntityManager em = pem.getEntityManager();
-            Konobar konobar = em.createQuery("Select s.konobar from Sto s where s.id = :id", Konobar.class).setParameter("id", id).getSingleResult();
-            em.close();
-            return konobar;
-        } catch(NoResultException e){
-            return null;
-        }
-    }
 
-    public void setKonobarRacun(Racun racun, Konobar konobar){
-        EntityManager em = pem.getEntityManager();
-        EntityTransaction et = em.getTransaction();
-        et.begin();
-        racun.setKonobar(konobar.getJmbg());
-        em.merge(racun);
-        et.commit();
-        em.close();
-    }
+
+
 
 
     public void addPic2Sto(Pice pice, Sto sto){
@@ -282,14 +291,7 @@ public class Crud {
         return false;
     }
 
-    public Konobar getKonobar(String name, String pass){
-        ObservableList<Konobar> konobari = getKonobars();
-        for (Konobar t : konobari) {
-            if ((t.getName().equals(name) && t.getPassword().equals(pass)))
-                return t;
-        }
-        return null;
-    }
+
 
     public void addMus2sto(Sto sto, Musterija musterija, Timestamp timestamp){
         EntityManager em = pem.getEntityManager();
@@ -427,7 +429,7 @@ public class Crud {
         Timestamp dayLater = new Timestamp(calendar.getTime().getTime());
         TypedQuery<Musterija> tq = em.createQuery("select m.musterija " +
                 "from Mus2sto m " +
-                "where m.time > :time and m.time < :dayAFter", Musterija.class);
+                "where m.time >= :time and m.time < :dayAFter", Musterija.class);
         tq.setParameter("time",timestamp);
         tq.setParameter("dayAFter",dayLater);
         ObservableList<Musterija> list = FXCollections.observableList(tq.getResultList());
